@@ -1,0 +1,37 @@
+.cardPost {
+  width: 300px;
+  height: 420px;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  margin-bottom: 50px;
+  border-radius: 2px;
+  transition: all 300ms;
+
+  &:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    transform: translateY(-5px);
+  }
+}
+
+.image {
+  object-fit: cover;
+  height: 200px;
+  border-radius: 2px 2px 0 0;
+}
+
+.date {
+  font-size: 14px;
+  color: #D4D4D4;
+}
+
+.info {
+  border-top: 4px solid #4A90E2;
+  padding: 20px 30px;
+}
+
+.excerpt {
+  font-size: 12px;
+  line-height: 1.45rem;
+}
