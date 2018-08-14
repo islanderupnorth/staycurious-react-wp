@@ -1,0 +1,59 @@
+.cardQuote {
+  position: relative;
+  width: 300px;
+  height: 420px;
+  display: flex;
+  flex-direction: column;
+  background: #252525;
+  color: #FAFAFA;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  margin: 0 5px 20px;
+  border-radius: 2px;
+}
+
+.quotationMark {
+  font-family: Arial Black, Helvetica, sans-serif;
+  font-size: 100px;
+  padding: 25px 25px 0;
+  line-height: 0.9;
+}
+
+.quote {
+  padding: 0 30px;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 2rem;
+  font-family: 'Libre Baskerville';
+}
+
+.author {
+  margin-top: 10px;
+  padding: 0 30px;
+  // font-weight: bold;
+  text-align: right;
+  position: relative;
+  font-family: 'Libre Baskerville';
+}
+
+.name {
+  opacity: 0.3;
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 47%;
+    background: white;
+    width: 19px;
+    height: 1px;
+  }
+}
+
+.date {
+  font-size: 12px;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.6;
+}

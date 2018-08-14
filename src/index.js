@@ -1,71 +1,31 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import registerServiceWorker from "./registerServiceWorker";
-import styles from "./styles/global.scss";
-import CardPost from "./components/CardPost/CardPost";
-import CardMusic from "./components/CardMusic/CardMusic";
+import BlogPostPage from "./components/BlogPostPage/BlogPostPage";
+import Error from "./components/Error/Error";
 import Filter from "./components/Filter/Filter";
+import Home from "./components/Home/Home";
+import Navigation from "./components/Navigation/Navigation";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
-class App extends Component {
-  state = {
-    filter: "music"
-  };
-
-  componentWillMount = () => {
-    fetch("http://blog.local/wp-json/wp/v2/posts")
-      .then(response => response.json())
-      .then(response => this.setState({ posts: response }));
-    fetch("http://blog.local/wp-json/wp/v2/music")
-      .then(response => response.json())
-      .then(response => this.setState({ music: response }));
-  };
-
-  cardType = type => {
-    let Card;
-    switch (type) {
-      case "post": {
-        Card = CardPost;
-        return Card;
-      }
-      case "music": {
-        Card = CardMusic;
-        return Card;
-      }
-    }
-  };
-
-  handleChangeFilter = what => {
-    this.setState({ filter: what });
-  };
-
+class App extends React.Component {
   render() {
-    const { posts, music, filter } = this.state;
-
-    // consider re-arranged & sorting by date (NOT id)
-    // Date.parse()
-    let cards;
-
-    if (posts && music && filter === "all")
-      cards = posts
-        .concat(music)
-        .sort(function(a, b) {
-          return a.id - b.id;
-        })
-        .reverse();
-    else if (music && filter === "music") cards = music;
-    else return null;
-
     return (
-      <React.Fragment>
-        <Filter changeFilter={this.handleChangeFilter} />
-        <div className={styles.wrapper}>
-          {cards &&
-            cards.map((card, index) => {
-              let Card = this.cardType(card.type);
-              return <Card key={index} {...card} />;
-            })}
-        </div>
-      </React.Fragment>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Fragment>
+            <Navigation />
+            <Switch>
+              <Route path="/blog/:slug" component={BlogPostPage} />
+              <Route path="/" component={Home} exact />
+              <Route path="/filter" component={Filter} />
+              <Route component={Error} />
+            </Switch>
+          </Fragment>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }

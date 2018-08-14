@@ -1,0 +1,5 @@
+export const FETCH_POSTS = "FETCH_POSTS";
+export const FETCH_QUOTES = "FETCH_QUOTES";
+export const FETCH_MUSIC = "FETCH_MUSIC";
+export const ACTIVE_POST = "ACTIVE_POST";
+export const HANDLE_FILTERING = "HANDLE_FILTERING";
