@@ -1,14 +1,16 @@
 import React from "react";
 import styles from "./arrow-style.scss";
 import { NavLink } from "react-router-dom";
+import cx from "classnames";
 
-const Arrow = () => (
-  <NavLink to="/">
+const Arrow = ({ onClick, next }) => (
+  // <NavLink to="/">
+  <div onClick={onClick}>
     <svg
       width="49px"
       height="18px"
       viewBox="0 0 49 18"
-      className={styles.arrow}
+      className={cx(styles.arrow, next && styles.next)}
     >
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(-63.000000, -75.000000)" stroke="#000000">
@@ -27,7 +29,8 @@ const Arrow = () => (
         </g>
       </g>
     </svg>
-  </NavLink>
+  </div>
+  // </NavLink>
 );
 
 export default Arrow;

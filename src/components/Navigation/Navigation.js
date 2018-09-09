@@ -6,8 +6,9 @@ const Navigation = () => {
   return (
     <div className={styles.navigation}>
       <NavLink to="/">
-        <span className={styles.stay}>Stay</span>
-        <span className={styles.curious}> Curious</span>
+        <span className={styles.staycurious}>Stay Curious</span>
+        <span className={styles.by}> by Nicolai Habla</span>
+        {/* <span className={styles.curious}>Curious</span> */}
       </NavLink>
     </div>
   );

@@ -3,6 +3,7 @@ import styles from "../../styles/global.scss";
 import CardPost from "../CardPost/CardPost";
 import CardMusic from "../CardMusic/CardMusic";
 import CardQuote from "../CardQuote/CardQuote";
+import Loader from "../Loader/Loader";
 import Filter from "../Filter/Filter";
 import posed from "react-pose";
 import { connect } from "react-redux";
@@ -68,7 +69,7 @@ class Home extends Component {
   componentDidMount() {
     setTimeout(() => {
       this.setState({ cardsVisible: true });
-    }, 300);
+    }, 200);
   }
 
   render() {
@@ -79,25 +80,31 @@ class Home extends Component {
     // Date.parse()
     let cards;
 
-    if ((posts && filter === "all") || (posts && !filter)) {
+    // if ((posts && filter === "all") || (posts && !filter)) {
+    //   console.log("filter all cards", cards);
+    //   console.log("filter all posts", posts);
+    if (posts) {
       cards = posts
-        .concat(music)
+        // .concat(music)
         .concat(quotes)
         .sort((a, b) => {
           return a.id - b.id;
         })
         .reverse();
-    } else if (music && filter === "music") cards = music;
-    else if (posts && filter === "posts") cards = posts;
-    else if (quotes && filter === "quotes") cards = quotes;
+      // }
+      // else if (music && filter === "music") cards = music;
+      // else if (posts && filter === "posts") cards = posts;
+      // else if (quotes && filter === "quotes") cards = quotes;
 
-    if (cards) console.log("cards[0]", cards[0]);
+      // if (cards) console.log("cards[0]", cards[0]);
+    }
 
     return (
       <Fragment>
-        <Filter changeFilter={this.handleChangeFilter} />
+        {/* <Filter changeFilter={this.handleChangeFilter} /> */}
+        <Loader />
         {!cards ? (
-          <h1>loading...</h1>
+          <Loader />
         ) : (
           <Fragment>
             {/* <h1>{cards[0].acf.quote}</h1> */}
@@ -108,8 +115,11 @@ class Home extends Component {
             >
               {cards.map((card, i) => {
                 // if (i > 0) {
-                let Card = this.cardType(card.type);
-                return <Card key={i} {...card} />;
+                console.log("card_s_", cards, "card", card);
+                if (card) {
+                  let Card = this.cardType(card.type);
+                  if (card) return <Card key={i} {...card} />;
+                } else return null;
                 // }
               })}
             </Grid>

@@ -1,0 +1,67 @@
+// Custom changes to Slick slider
+:global .slick-slide img {
+  margin: 0 auto;
+}
+
+:global .slick-slider .slick-track, :global .slick-slider .slick-list {
+  display: flex;
+  align-items: center;
+}
+
+:global .slick-current {
+  overflow: unset !important;
+}
+
+:global .slick-slide {
+  overflow: hidden !important;
+}
+
+:global .slick-prev, :global .slick-next {
+  z-index: 1;
+  background: red !important;
+}
+
+:global .slick-prev {
+  left: 0 !important;
+}
+
+:global .slick-next {
+  right: 0 !important;
+}
+
+:global .custom-dots {
+  display: flex !important;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  li {
+    opacity: 0.8;
+    height: 5px;
+    width: 5px;
+    background: white;
+    border-radius: 10%;
+    margin: 15px;
+    transition: opacity 300ms, transform 300ms;
+
+    &:hover {
+      opacity: 1;
+      transform: scale(2);
+    }
+  }
+
+  button {
+    padding: 10px;
+    border: none;
+    opacity: 0;
+  }
+
+  .slick-active {
+    opacity: 0.8;
+    transform: scale(2);
+  }
+}

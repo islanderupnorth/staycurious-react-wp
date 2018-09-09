@@ -7,17 +7,19 @@ import Arrow from "../Arrow/Arrow";
 import renderHTML from "react-render-html";
 import styles from "./blogPostPage-style.scss";
 import Slider from "react-slick";
+// import "../../styles/slick.scss";
+import "!style-loader!css-loader!slick-carousel/slick/slick.css";
+import "!style-loader!css-loader!slick-carousel/slick/slick-theme.css";
 
 class BlogPostPage extends React.Component {
-  state = { gallery: false };
+  state = {};
 
   handleGallery = () => {
-    // console.log("handlingGallery", this.props.post);
     fetch(
       `http://blog.local/wp-json/gallery_plugin/v2/post/${this.state.post.id}`
     )
       .then(response => response.json())
-      .then(items => this.setState({ gallery: items || "no gallery" }));
+      .then(items => this.setState({ gallery: items || "none" }));
   };
 
   componentDidMount = () => {
@@ -28,7 +30,7 @@ class BlogPostPage extends React.Component {
   };
 
   render() {
-    const { post } = this.state;
+    const { post, gallery } = this.state;
 
     if (this.props.post && !post) {
       this.setState({ post: this.props.post });
@@ -42,7 +44,7 @@ class BlogPostPage extends React.Component {
     let content;
     // check content.rendered from WP API if it includes inline styling and if it does remove it
     if (post) {
-      if (!this.state.gallery) this.handleGallery();
+      if (!gallery) this.handleGallery();
 
       content = post.content.rendered.includes("<style")
         ? post.content.rendered.replace(
@@ -65,7 +67,18 @@ class BlogPostPage extends React.Component {
         : content;
     }
 
-    // console.log("slider", Slider);
+    const settings = {
+      dots: true,
+      infinite: true,
+      slidesToShow: 1,
+      speed: 500,
+      arrows: true,
+      lazyLoad: true,
+      autoplay: true,
+      prevArrow: <Arrow />,
+      nextArrow: <Arrow next />,
+      dotsClass: "custom-dots",
+    };
 
     return (
       <Fragment>
@@ -78,6 +91,16 @@ class BlogPostPage extends React.Component {
               <div className={styles.date}>{formateDate(post.date)}</div>
               <h1>{post.title.rendered}</h1>
               {renderHTML(content)}
+              {gallery &&
+                gallery !== "none" && (
+                  <Slider {...settings}>
+                    {gallery.map((image, i) => (
+                      <div key={i}>
+                        <img src={image} />
+                      </div>
+                    ))}
+                  </Slider>
+                )}
             </div>
           )}
         </div>

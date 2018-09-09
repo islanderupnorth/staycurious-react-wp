@@ -19,12 +19,15 @@
     .info {
       transform: translateY(205px);
     }
+    .excerpt {
+      opacity: 1;
+    }
   }
 }
 
 .image {
   object-fit: cover;
-  height: 295px;
+  height: 285px;
   border-radius: 2px 2px 0 0;
 }
 
@@ -37,13 +40,15 @@
   background: white;
   // width: 100%;
   position: absolute;
-  transform: translateY(295px);
-  border-top: 4px solid #4A90E2;
+  transform: translateY(285px);
+  // border-top: 4px solid #4A90E2;
   padding: 20px 30px;
   transition: transform 300ms;
 }
 
 .excerpt {
+  opacity: 0;
+  transition: opacity 300ms;
   font-size: 14px;
   line-height: 1.2rem;
 }
